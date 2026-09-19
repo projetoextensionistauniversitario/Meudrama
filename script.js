@@ -35,7 +35,7 @@ function featuredCard(s){
 function storyCard(s){
   return `<article class="story-card" data-story="${s.id}">
     <img src="${s.cover}" alt="Capa de ${s.title}">
-    <div class="story-info"><h3>${s.title}</h3><p>${s.episodes}</p>
+    <div class="meta">• História completa &nbsp; 
     <button class="mini-buy" data-story="${s.id}">Ver novelinha — R$ 5</button></div>
   </article>`;
 }
