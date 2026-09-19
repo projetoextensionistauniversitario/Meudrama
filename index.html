@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MeuDrama — Sua história. Seu drama. Seu momento.">
+  <title>MeuDrama — Novelinhas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#inicio" aria-label="MeuDrama">
+      <span>Meu</span><b>Drama</b>
+      <small>SUA HISTÓRIA. SEU MOMENTO.</small>
+    </a>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#novelinhas">Novelinhas</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#ajuda">Ajuda</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Buscar">⌕</button>
+      <button class="outline-btn" id="loginBtn">Entrar</button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">MEUDRAMA ORIGINALS</p>
+        <h1>Histórias que <em>emocionam.</em></h1>
+        <p class="hero-text">Amor, mistério, vingança e muito mais. Escolha sua novelinha e viva essa emoção.</p>
+        <a class="primary-btn" href="#novelinhas">EXPLORAR NOVELINHAS <span>→</span></a>
+      </div>
+      <div class="hero-glow"></div>
+    </section>
+
+    <section class="genres">
+      <button class="genre active" data-filter="Todos">▦<span>Todos</span></button>
+      <button class="genre" data-filter="Romance">♡<span>Romance</span></button>
+      <button class="genre" data-filter="Drama">◈<span>Drama</span></button>
+      <button class="genre" data-filter="Máfia">♛<span>Máfia</span></button>
+      <button class="genre" data-filter="Fantasia">♨<span>Fantasia</span></button>
+      <button class="genre" data-filter="Mistério">⌕<span>Mistério</span></button>
+    </section>
+
+    <section class="section" id="novelinhas">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow pink">EM DESTAQUE</p>
+          <h2>Novelinhas em destaque</h2>
+        </div>
+        <a href="#catalogo">Ver todas →</a>
+      </div>
+
+      <div class="featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <section class="section" id="catalogo">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow pink">ESCOLHA SUA HISTÓRIA</p>
+          <h2>Mais histórias para você</h2>
+        </div>
+      </div>
+      <div class="catalog" id="catalog"></div>
+    </section>
+
+    <section class="how" id="como-funciona">
+      <div class="section-heading centered">
+        <p class="eyebrow pink">SIMPLES E DIRETO</p>
+        <h2>Como funciona?</h2>
+      </div>
+      <div class="steps">
+        <article><span>01</span><h3>Escolha</h3><p>Encontre a novelinha que você quer assistir.</p></article>
+        <article><span>02</span><h3>Compre</h3><p>Cada história tem seu próprio acesso por R$ 5,00.</p></article>
+        <article><span>03</span><h3>Assista</h3><p>O acesso comprado fica vinculado àquela história.</p></article>
+      </div>
+      <p class="notice">Nesta primeira versão, o botão de compra é apenas uma demonstração. O pagamento real será conectado depois, com autenticação e controle de acesso.</p>
+    </section>
+
+    <section class="benefits">
+      <div><b>🔒</b><strong>Compra segura</strong><span>Seus dados protegidos</span></div>
+      <div><b>▶</b><strong>Acesso à história</strong><span>Assista quando quiser</span></div>
+      <div><b>♛</b><strong>Conteúdo exclusivo</strong><span>Novelinhas e bônus</span></div>
+      <div><b>♡</b><strong>Suporte</strong><span>Estamos aqui para ajudar</span></div>
+    </section>
+
+    <section class="newsletter">
+      <div><span class="mail">✉</span><div><strong>Receba novidades</strong><p>Fique por dentro dos próximos lançamentos.</p></div></div>
+      <form id="newsletterForm"><input type="email" placeholder="Seu e-mail" required><button>Quero receber</button></form>
+    </section>
+  </main>
+
+  <footer id="ajuda">
+    <div class="footer-logo"><span>Meu</span><b>Drama</b><small>SUA HISTÓRIA. SEU MOMENTO.</small></div>
+    <div class="footer-links"><a href="#inicio">Início</a><a href="#novelinhas">Novelinhas</a><a href="#como-funciona">Como funciona</a><a href="#ajuda">Ajuda</a></div>
+    <p>© 2026 MeuDrama. Todos os direitos reservados.</p>
+  </footer>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-card">
+      <button class="close" id="closeModal">×</button>
+      <p class="eyebrow pink">MEUDRAMA</p>
+      <h2 id="modalTitle">Comprar acesso</h2>
+      <p id="modalText">Você está adquirindo acesso somente a esta novelinha.</p>
+      <div class="price">R$ 5,00</div>
+      <button class="primary-btn full" id="demoBuy">Continuar para pagamento</button>
+      <small>Protótipo: nenhum pagamento será realizado nesta versão.</small>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
