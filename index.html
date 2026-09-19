@@ -103,14 +103,28 @@
   </footer>
 
   <div class="modal hidden" id="modal">
-    <div class="modal-card">
-      <button class="close" id="closeModal">×</button>
-      <p class="eyebrow pink">MEUDRAMA</p>
-      <h2 id="modalTitle">Comprar acesso</h2>
-      <p id="modalText">Você está adquirindo acesso somente a esta novelinha.</p>
-      <div class="price">R$ 5,00</div>
-      <button class="primary-btn full" id="demoBuy">Continuar para pagamento</button>
-      <small>Protótipo: nenhum pagamento será realizado nesta versão.</small>
+    <div class="modal-card detail-card">
+      <button class="close" id="closeModal" aria-label="Fechar">×</button>
+      <img id="detailCover" class="detail-cover" src="" alt="">
+      <div class="detail-content">
+        <p class="eyebrow pink">MEUDRAMA ORIGINAL</p>
+        <h2 id="modalTitle">Novelinha</h2>
+        <p id="modalText"></p>
+        <div class="detail-meta" id="detailMeta"></div>
+        <h3>O que você recebe</h3>
+        <ul id="detailBenefits"></ul>
+        <div class="episodes-title">
+          <strong>Episódios</strong>
+          <span id="episodeCount"></span>
+        </div>
+        <div class="episode-list" id="episodeList"></div>
+        <div class="purchase-box">
+          <div><span>Acesso individual</span><strong>R$ 5,00</strong></div>
+          <small>Esta compra dá acesso somente a esta novelinha.</small>
+          <button class="primary-btn full" id="demoBuy">Comprar acesso por R$ 5</button>
+          <small>Protótipo: o pagamento real será conectado depois.</small>
+        </div>
+      </div>
     </div>
   </div>
 
