@@ -1,11 +1,11 @@
 const stories = [
-  {id:"vipera", title:"A VÍPERA DONNA", genre:["Drama","Máfia"], episodes:"20 episódios", cover:"assets/capa-vipera-donna.jpeg", desc:"A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.", tag:"EM ALTA"},
-  {id:"chamas", title:"ENTRE CHAMAS E ESCAMAS", genre:["Fantasia","Romance"], episodes:"18 episódios", cover:"assets/capa-entre-chamas-e-escamas.jpeg", desc:"Uma história de fantasia, romance e drama em meio a mistérios que vão mudar seu destino.", tag:"NOVIDADE"},
-  {id:"segredos", title:"Segredos do Passado", genre:["Mistério","Drama"], episodes:"16 episódios", cover:"assets/capa-vipera-donna.jpeg"},
-  {id:"preco", title:"O Preço da Liberdade", genre:["Drama","Romance"], episodes:"14 episódios", cover:"assets/capa-entre-chamas-e-escamas.jpeg"},
-  {id:"amor", title:"Amor Proibido", genre:["Romance"], episodes:"12 episódios", cover:"assets/capa-vipera-donna.jpeg"},
-  {id:"heranca", title:"Herança de Sangue", genre:["Drama","Mistério"], episodes:"15 episódios", cover:"assets/capa-vipera-donna.jpeg"},
-  {id:"mundos", title:"Entre Dois Mundos", genre:["Fantasia","Romance"], episodes:"10 episódios", cover:"assets/capa-entre-chamas-e-escamas.jpeg"}
+  {id:"vipera", title:"A VÍPERA DONNA", genre:["Drama","Máfia"], episodes:"20 episódios", cover:"capa-vipera-donna.jpeg", desc:"A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.", tag:"EM ALTA"},
+  {id:"chamas", title:"ENTRE CHAMAS E ESCAMAS", genre:["Fantasia","Romance"], episodes:"18 episódios", cover:"capa-entre-chamas-e-escamas.jpeg", desc:"Uma história de fantasia, romance e drama em meio a mistérios que vão mudar seu destino.", tag:"NOVIDADE"},
+  {id:"segredos", title:"Segredos do Passado", genre:["Mistério","Drama"], episodes:"16 episódios", cover:"capa-vipera-donna.jpeg"},
+  {id:"preco", title:"O Preço da Liberdade", genre:["Drama","Romance"], episodes:"14 episódios", cover:"capa-entre-chamas-e-escamas.jpeg"},
+  {id:"amor", title:"Amor Proibido", genre:["Romance"], episodes:"12 episódios", cover:"capa-vipera-donna.jpeg"},
+  {id:"heranca", title:"Herança de Sangue", genre:["Drama","Mistério"], episodes:"15 episódios", cover:"capa-vipera-donna.jpeg"},
+  {id:"mundos", title:"Entre Dois Mundos", genre:["Fantasia","Romance"], episodes:"10 episódios", cover:"capa-entre-chamas-e-escamas.jpeg"}
 ];
 
 const featured = document.querySelector("#featuredGrid");
