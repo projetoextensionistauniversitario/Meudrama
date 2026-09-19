@@ -22,3 +22,35 @@
   .detail-content{padding:20px}
   .episode-list{grid-template-columns:1fr}
 }
+.featured-tcard {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.featured-tcard .cover {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+.story-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  border-radius: 14px;
+}
+
+@media (max-width: 600px) {
+  .featured-tcard {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-tcard .cover {
+    height: 360px;
+  }
+}
