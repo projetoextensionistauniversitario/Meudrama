@@ -21,8 +21,8 @@ const episodeCount = document.querySelector("#episodeCount");
 const episodeList = document.querySelector("#episodeList");
 
 function featuredCard(s){
-  return `<article class="featured-card" data-story="${s.id}">
-    <img class="cover" src="${us.cover}" alt="Capa de ${s.title}">
+  return `<article class="featured-tcard" data-story="${s.id}">
+    <img class="cover" src="${s.cover}" alt="Capa de ${s.title}">
     <div class="featured-info">
       <span class="tag">${s.tag}</span>
       <h3>${s.title}</h3>
