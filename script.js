@@ -50,31 +50,44 @@ function render(filter="Todos"){
   });
 }
 function openDetail(id){
-  const s = stories.find(x=>x.id===id);
+  const s = stories.find(x => x.id === id);
   if(!s) return;
+
   modalTitle.textContent = s.title;
   modalText.textContent = s.desc;
   detailCover.src = s.cover;
   detailCover.alt = `Capa de ${s.title}`;
-  detailMeta.innerHTML = `<span>História completa</span><span>•</span><span>${s.genre.join(" • ")}</span>`;
+
+  detailMeta.innerHTML = `
+    <span>História completa</span>
+    <strong>R$ 5,00</strong>
+  `;
+
   detailBenefits.innerHTML = `
-    <
-    <li>✓ Bônus: ${s.bonus || "conteúdo extra da história."}</li>
-    <li>✓ Acesso individual, sem incluir outras novelinhas</li>`;
-  episodeCount.textContent = `${s.episodeCount} episódios`;
-  episodeList.innerHTML = Array.from({length:s.episodeCount},(_,i)=>
-    `<div class="episode-row"><span>Episódio ${i+1}</span><span class="locked">🔒</span></div>`
-  ).join("");
+    <li>História completa da novelinha</li>
+    <li>Acesso individual a esta novelinha</li>
+  `;
+
+  episodeCount.textContent = "";
+  episodeList.innerHTML = "";
+
   modal.classList.remove("hidden");
 }
-document.querySelector("#closeModal").onclick=()=>modal.classList.add("hidden");
-modal.addEventListener("click",e=>{if(e.target===modal) modal.classList.add("hidden")});
-document.querySelector("#demoBuy").onclick=()=>{
-  alert("Demonstração: o pagamento real será conectado nesta próxima etapa. A compra será vinculada somente a esta novelinha.");
+
+document.querySelector("#closeModal").onclick = () => {
+  modal.classList.add("hidden");
 };
-document.querySelector("#loginBtn").onclick=()=>alert("Área de login — será conectada na etapa de conta e acesso.");
-document.querySelector("#searchBtn").onclick=()=>document.querySelector("#catalogo").scrollIntoView({behavior:"smooth"});
-document.querySelectorAll(".genre").forEach(btn=>btn.addEventListener("click",()=>{
+
+modal.addEventListener("click", e => {
+  if(e.target === modal){
+    modal.classList.add("hidden");
+  }
+});
+
+document.querySelector("#demoBuy").onclick = () => {
+  alert("Demonstração: a compra de R$ 5,00 será configurada posteriormente.");
+};
+    
   document.querySelectorAll(".genre").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
   render(btn.dataset.filter);
