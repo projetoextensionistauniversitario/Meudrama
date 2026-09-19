@@ -83,10 +83,14 @@ modal.addEventListener("click", e => {
     modal.classList.add("hidden");
   }
 });
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("#demoBuy");
 
-document.querySelector("#demoBuy").onclick = () => {
-  window.open("https://link.picpay.com/p/17898585596aaf12ff19cc2", "_blank");
-};
+  if (!btn) return;
+
+  window.location.href = "https://link.picpay.com/p/17898585596aaf12ff19cc2";
+});
+
     
   document.querySelectorAll(".genre").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
