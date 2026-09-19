@@ -22,12 +22,12 @@ const episodeList = document.querySelector("#episodeList");
 
 function featuredCard(s){
   return `<article class="featured-card" data-story="${s.id}">
-    <img class="cover" src="${s.cover}" alt="Capa de ${s.title}">
+    <img class="cover" src="${us.cover}" alt="Capa de ${s.title}">
     <div class="featured-info">
       <span class="tag">${s.tag}</span>
       <h3>${s.title}</h3>
       <p>${s.desc}</p>
-      <div class="meta">◉ ${s.episodes} &nbsp; • &nbsp; 🎁 Bônus</div>
+      <div class="meta">◉ História completa &nbsp; • &nbsp; 
       <button class="buy" data-story="${s.id}">Ver detalhes e comprar</button>
     </div>
   </article>`;
@@ -56,9 +56,9 @@ function openDetail(id){
   modalText.textContent = s.desc;
   detailCover.src = s.cover;
   detailCover.alt = `Capa de ${s.title}`;
-  detailMeta.innerHTML = `<span>${s.episodes}</span><span>•</span><span>${s.genre.join(" • ")}</span>`;
+  detailMeta.innerHTML = `<span>História completa</span><span>•</span><span>${s.genre.join(" • ")}</span>`;
   detailBenefits.innerHTML = `
-    <li>✓ Acesso a todos os ${s.episodeCount} episódios</li>
+    <
     <li>✓ Bônus: ${s.bonus || "conteúdo extra da história."}</li>
     <li>✓ Acesso individual, sem incluir outras novelinhas</li>`;
   episodeCount.textContent = `${s.episodeCount} episódios`;
