@@ -85,7 +85,7 @@ modal.addEventListener("click", e => {
 });
 
 document.querySelector("#demoBuy").onclick = () => {
-  alert("Demonstração: a compra de R$ 5,00 será configurada posteriormente.");
+  window.open("https://link.picpay.com/p/17898585596aaf12ff19cc2", "_blank");
 };
     
   document.querySelectorAll(".genre").forEach(b=>b.classList.remove("active"));
