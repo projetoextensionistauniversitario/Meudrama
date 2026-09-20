@@ -1,605 +1,277 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MeuDrama - Novelinhas completas por apenas R$ 5,00.">
-<title>MeuDrama - Novelinhas</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-html{scroll-behavior:smooth}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#09070d;
-  color:#fff;
-  line-height:1.5;
-}
-
-a{text-decoration:none;color:inherit}
-button{font:inherit}
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(9,7,13,.96);
-  border-bottom:1px solid rgba(255,255,255,.09);
-  backdrop-filter:blur(12px);
-  padding:16px 6%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  font-size:24px;
-  font-weight:900;
-  color:#ff4a9a;
-}
-
-.logo small{
-  display:block;
-  color:#aaa;
-  font-size:10px;
-  letter-spacing:1.5px;
-}
-
-nav{
-  display:flex;
-  gap:22px;
-}
-
-nav a{
-  color:#ddd;
-  font-weight:700;
-  font-size:14px;
-}
-
-nav a:hover{color:#ff4a9a}
-
-.hero{
-  min-height:420px;
-  display:flex;
-  align-items:center;
-  padding:60px 7%;
-  background:
-    radial-gradient(circle at 80% 30%,rgba(255,74,154,.20),transparent 35%),
-    linear-gradient(135deg,#17121d,#09070d);
-}
-
-.hero-content{
-  max-width:700px;
-}
-
-.tag{
-  color:#ff4a9a;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:2px;
-  margin-bottom:12px;
-}
-
-.hero h1{
-  font-size:52px;
-  line-height:1.05;
-  margin-bottom:18px;
-}
-
-.hero p{
-  color:#c9c9c9;
-  font-size:18px;
-  max-width:620px;
-}
-
-.section{
-  padding:55px 7%;
-}
-
-.section-title{
-  margin-bottom:25px;
-}
-
-.section-title h2{
-  font-family:Georgia,serif;
-  font-size:32px;
-}
-
-.section-title p{
-  color:#999;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:24px;
-}
-
-.card{
-  background:linear-gradient(145deg,#17121d,#0f0c14);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:22px;
-  overflow:hidden;
-  box-shadow:0 18px 50px rgba(0,0,0,.3);
-  transition:.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(255,74,154,.5);
-}
-
-.cover{
-  height:430px;
-  background:#17131d;
-  overflow:hidden;
-}
-
-.cover img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-}
-
-.card-body{
-  padding:22px;
-}
-
-.card-body .tag{
-  margin-bottom:7px;
-}
-
-.card h3{
-  font-family:Georgia,serif;
-  font-size:29px;
-  margin:7px 0;
-}
-
-.card p{
-  color:#bbb;
-  min-height:52px;
-  margin:17px 0;
-}
-
-.price{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:15px;
-}
-
-.price span{
-  color:#aaa;
-}
-
-.price strong{
-  font-size:22px;
-  color:#fff;
-}
-
-.primary{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:14px;
-  background:#ff4a9a;
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.primary:hover{
-  background:#ff277f;
-}
-
-.how{
-  background:#100d15;
-}
-
-.steps{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.step{
-  padding:25px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:#15111b;
-}
-
-.step strong{
-  display:block;
-  color:#ff4a9a;
-  margin-bottom:8px;
-}
-
-footer{
-  padding:35px 7%;
-  text-align:center;
-  color:#777;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:rgba(0,0,0,.78);
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(560px,100%);
-  background:#15111b;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  padding:28px;
-  position:relative;
-  box-shadow:0 25px 80px rgba(0,0,0,.5);
-}
-
-.close{
-  position:absolute;
-  top:12px;
-  right:16px;
-  background:none;
-  border:0;
-  color:#aaa;
-  font-size:28px;
-  cursor:pointer;
-}
-
-.modal-box h2{
-  font-family:Georgia,serif;
-  font-size:32px;
-  margin-bottom:15px;
-  padding-right:30px;
-}
-
-.modal-box p{
-  color:#bbb;
-  margin-bottom:14px;
-}
-
-.modal-price{
-  font-size:28px;
-  font-weight:900;
-  margin:20px 0;
-}
-
-.modal-price span{
-  font-size:13px;
-  color:#999;
-  font-weight:400;
-}
-
-.whatsapp{
-  width:100%;
-  margin-top:10px;
-  border:1px solid rgba(255,255,255,.15);
-  border-radius:12px;
-  padding:13px;
-  background:#1b1722;
-  color:#fff;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.notice{
-  font-size:12px;
-  color:#777;
-  margin-top:12px;
-  text-align:center;
-}
-
-@media(max-width:750px){
-  nav{display:none}
-
-  .hero h1{
-    font-size:38px;
-  }
-
-  .grid,
-  .steps{
-    grid-template-columns:1fr;
-  }
-
-  .cover{
-    height:420px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MeuDrama — Novelinhas completas por apenas R$ 5,00.">
+  <title>MeuDrama — Novelinhas</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:#09070d;
+      color:#fff;
+      line-height:1.5;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(9,7,13,.94);
+      border-bottom:1px solid rgba(255,255,255,.09);
+      backdrop-filter:blur(12px);
+    }
+    .nav{
+      max-width:1180px;margin:auto;padding:16px 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:25px;
+    }
+    .logo{font-size:25px;font-weight:800;letter-spacing:-1px}
+    .logo span{color:#fff}.logo b{color:#ff3d91}
+    .logo small{display:block;font-size:9px;letter-spacing:2px;color:#aaa;margin-top:1px}
+    nav{display:flex;gap:24px;color:#ddd;font-size:14px}
+    nav a:hover{color:#ff4a9a}
+    .hero{
+      max-width:1180px;margin:0 auto;padding:80px 22px 55px;
+      text-align:center;
+    }
+    .eyebrow{color:#ff3d91;font-weight:800;font-size:13px;letter-spacing:2px}
+    .hero h1{
+      font-family:Georgia,serif;font-size:clamp(42px,7vw,76px);
+      line-height:1.02;margin:14px auto;max-width:850px;
+    }
+    .hero p{max-width:650px;margin:0 auto;color:#bdb8c3;font-size:17px}
+    .hero-btn{
+      display:inline-block;margin-top:28px;padding:14px 25px;
+      border-radius:999px;background:#ff3d91;color:#fff;font-weight:800;
+      box-shadow:0 12px 35px rgba(255,61,145,.2);
+    }
+    section{max-width:1180px;margin:auto;padding:45px 22px}
+    .section-head{text-align:center;margin-bottom:28px}
+    .section-head h2{font-family:Georgia,serif;font-size:38px;margin-top:6px}
+    .section-head p{color:#aaa;margin-top:7px}
+    .cards{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px
+    }
+    .card{
+      background:linear-gradient(145deg,#17121d,#0f0c14);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:22px;overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,.3);
+      transition:.2s;
+    }
+    .card:hover{transform:translateY(-4px);border-color:rgba(255,61,145,.4)}
+    .cover-wrap{height:430px;background:#17131d;overflow:hidden}
+    .cover{
+      width:100%;height:100%;display:block;object-fit:cover;
+    }
+    .card-body{padding:22px}
+    .tag{display:inline-block;color:#ff4a9a;font-size:11px;font-weight:800;letter-spacing:1.5px}
+    .card h3{font-family:Georgia,serif;font-size:29px;margin:7px 0}
+    .card p{color:#b9b4bf;min-height:52px}
+    .meta{margin:17px 0;color:#eee;font-weight:700}
+    .buy{
+      display:block;width:100%;text-align:center;
+      background:#ff3d91;color:#fff;border:0;border-radius:12px;
+      padding:14px;font-weight:800;cursor:pointer;
+    }
+    .buy:hover{background:#ff579f}
+    .how{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .step{
+      padding:28px 22px;border:1px solid rgba(255,255,255,.1);
+      border-radius:18px;background:#111018;text-align:center;
+    }
+    .num{color:#ff3d91;font-weight:900;font-size:13px}
+    .step h3{font-size:21px;margin:10px 0}
+    .step p{color:#aaa}
+    .note{text-align:center;color:#8f8a96;font-size:12px;margin-top:20px}
+    .help{
+      text-align:center;background:linear-gradient(145deg,#17111c,#0d0a11);
+      border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:38px 22px;
+    }
+    footer{text-align:center;color:#777;padding:35px 20px;border-top:1px solid rgba(255,255,255,.07)}
+    .modal{
+      position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.78);
+      display:none;align-items:center;justify-content:center;padding:20px;
+    }
+    .modal.open{display:flex}
+    .modal-box{
+      width:min(900px,100%);max-height:92vh;overflow:auto;
+      background:#15111b;border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;position:relative;
+    }
+    .close{
+      position:absolute;right:15px;top:12px;z-index:2;
+      width:40px;height:40px;border:0;border-radius:50%;
+      background:rgba(0,0,0,.65);color:#fff;font-size:25px;cursor:pointer;
+    }
+    .modal-grid{display:grid;grid-template-columns:280px 1fr}
+    .modal-cover{width:100%;height:100%;min-height:430px;object-fit:cover}
+    .modal-content{padding:35px}
+    .modal-content h2{font-family:Georgia,serif;font-size:37px;margin:7px 0 12px}
+    .modal-content .desc{color:#bcb7c2;margin-bottom:20px}
+    .complete{
+      display:inline-block;padding:7px 11px;border-radius:999px;
+      background:rgba(255,61,145,.12);color:#ff5aa3;font-size:12px;font-weight:800;
+    }
+    .price{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;margin:20px 0;border-top:1px solid rgba(255,255,255,.08);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .price strong{font-size:25px}
+    .small{color:#8e8994;font-size:12px;margin-top:12px;text-align:center}
+    @media(max-width:700px){
+      nav{gap:12px;font-size:12px}
+      .nav{padding:13px 15px}
+      .logo{font-size:21px}
+      .cards,.how,.modal-grid{grid-template-columns:1fr}
+      .cover-wrap{height:390px}
+      .modal-cover{height:360px;min-height:0}
+      .modal-content{padding:25px}
+    }
+  </style>
 </head>
-
 <body>
 
 <header class="topbar">
-  <a class="logo" href="#inicio">
-    MeuDrama
-    <small>SUA HISTÓRIA. SEU DRAMA. SEU MOMENTO.</small>
-  </a>
-
-  <nav>
-    <a href="#inicio">Início</a>
-    <a href="#novelinhas">Novelinhas</a>
-    <a href="#como">Como funciona</a>
-    <a href="#ajuda">Ajuda</a>
-  </nav>
+  <div class="nav">
+    <a class="logo" href="#inicio"><span>Meu</span><b>Drama</b><small>SUA HISTÓRIA. SEU MOMENTO.</small></a>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#novelinhas">Novelinhas</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#ajuda">Ajuda</a>
+    </nav>
+  </div>
 </header>
 
-<section class="hero" id="inicio">
-  <div class="hero-content">
-    <div class="tag">MEUDRAMA</div>
-    <h1>Escolha sua novelinha.</h1>
-    <p>
-      Histórias completas para você assistir quando quiser.
-      Escolha uma história e tenha acesso individual por apenas R$ 5,00.
-    </p>
-  </div>
-</section>
+<main id="inicio">
+  <section class="hero">
+    <div class="eyebrow">MEUDRAMA ORIGINAL</div>
+    <h1>Histórias que emocionam.</h1>
+    <p>Escolha sua novelinha, compre o acesso individual por apenas R$ 5,00 e aproveite a história completa.</p>
+    <a class="hero-btn" href="#novelinhas">Ver novelinhas</a>
+  </section>
 
-<section class="section" id="novelinhas">
+  <section id="novelinhas">
+    <div class="section-head">
+      <div class="eyebrow">ESCOLHA SUA HISTÓRIA</div>
+      <h2>Novelinhas</h2>
+      <p>Uma história por vez. Um acesso simples e direto.</p>
+    </div>
 
-  <div class="section-title">
-    <h2>Novelinhas</h2>
-    <p>Escolha a história que você quer assistir.</p>
-  </div>
-
-  <div class="grid">
-
-    <article class="card">
-      <div class="cover">
-        <img src="capa-vipera-donna.jpeg" alt="Capa VÍPERA DONNA">
-      </div>
-
-      <div class="card-body">
-        <div class="tag">NOVELINHA</div>
-        <h3>VÍPERA DONNA</h3>
-
-        <p>
-          Uma história cheia de drama, segredos e reviravoltas.
-        </p>
-
-        <div class="price">
-          <span>Acesso individual</span>
-          <strong>R$ 5,00</strong>
+    <div class="cards">
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="capa-vipera-donna.jpeg" alt="Capa de A VÍPERA DONNA">
         </div>
-
-        <button class="primary"
-          onclick="openStory('VÍPERA DONNA','Uma história cheia de drama, segredos e reviravoltas.')">
-          VER DETALHES E COMPRAR
-        </button>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="cover">
-        <img src="capa-entre-chamas-e-escamas.jpeg" alt="Capa ENTRE CHAMAS E ESCAMAS">
-      </div>
-
-      <div class="card-body">
-        <div class="tag">NOVELINHA</div>
-        <h3>ENTRE CHAMAS E ESCAMAS</h3>
-
-        <p>
-          Uma história intensa onde segredos podem mudar tudo.
-        </p>
-
-        <div class="price">
-          <span>Acesso individual</span>
-          <strong>R$ 5,00</strong>
+        <div class="card-body">
+          <span class="tag">MÁFIA · DRAMA · ROMANCE</span>
+          <h3>A VÍPERA DONNA</h3>
+          <p>A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.</p>
+          <div class="meta">História completa · R$ 5,00</div>
+          <button class="buy" onclick="openStory('vipera')">Ver detalhes e comprar</button>
         </div>
+      </article>
 
-        <button class="primary"
-          onclick="openStory('ENTRE CHAMAS E ESCAMAS','Uma história intensa onde segredos podem mudar tudo.')">
-          VER DETALHES E COMPRAR
-        </button>
-      </div>
-    </article>
-
-  </div>
-</section>
-
-<section class="section how" id="como">
-  <div class="section-title">
-    <h2>Como funciona?</h2>
-    <p>É simples e rápido.</p>
-  </div>
-
-  <div class="steps">
-    <div class="step">
-      <strong>01 — Escolha</strong>
-      Escolha a novelinha que você quer assistir.
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="capa-entre-chamas-e-escamas.jpeg" alt="Capa de ENTRE CHAMAS E ESCAMAS">
+        </div>
+        <div class="card-body">
+          <span class="tag">FANTASIA · ROMANCE · DRAMA</span>
+          <h3>ENTRE CHAMAS E ESCAMAS</h3>
+          <p>Um romance cercado por segredos, perigos e um destino que pode mudar tudo.</p>
+          <div class="meta">História completa · R$ 5,00</div>
+          <button class="buy" onclick="openStory('chamas')">Ver detalhes e comprar</button>
+        </div>
+      </article>
     </div>
+  </section>
 
-    <div class="step">
-      <strong>02 — Pague</strong>
-      Faça o pagamento de R$ 5,00 pelo PicPay.
+  <section id="como-funciona">
+    <div class="section-head">
+      <div class="eyebrow">SIMPLES E DIRETO</div>
+      <h2>Como funciona?</h2>
     </div>
-
-    <div class="step">
-      <strong>03 — Acesse</strong>
-      Após a confirmação, você recebe o acesso à história escolhida.
+    <div class="how">
+      <div class="step"><div class="num">01</div><h3>Escolha</h3><p>Encontre a novelinha que você quer assistir.</p></div>
+      <div class="step"><div class="num">02</div><h3>Compre</h3><p>Cada história tem seu próprio acesso por R$ 5,00.</p></div>
+      <div class="step"><div class="num">03</div><h3>Acesse</h3><p>Após o pagamento, siga as instruções para receber seu acesso.</p></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section" id="ajuda">
-  <div class="section-title">
-    <h2>Ajuda</h2>
-    <p>Precisa de ajuda com sua compra? Entre em contato pelo WhatsApp.</p>
-  </div>
-</section>
+  <section id="ajuda">
+    <div class="help">
+      <div class="eyebrow">PRECISA DE AJUDA?</div>
+      <h2 style="font-family:Georgia,serif;margin:8px 0">Estamos aqui.</h2>
+      <p style="color:#aaa">Escolha a história, faça o pagamento e guarde o comprovante. Em caso de dúvida, entre em contato pelo canal de atendimento.</p>
+    </div>
+  </section>
+</main>
 
-<footer>
-  © 2026 MeuDrama — Todos os direitos reservados.
-</footer>
+<footer>© 2026 MeuDrama · Histórias que emocionam</footer>
 
-<div class="modal" id="modal">
+<div class="modal" id="modal" onclick="closeOutside(event)">
   <div class="modal-box">
-
-    <button class="close" onclick="closeModal()">×</button>
-
-    <div class="tag">MEUDRAMA</div>
-
-    <h2 id="modalTitle"></h2>
-
-    <p id="modalDescription"></p>
-
-    <p>
-      <strong>História completa</strong>
-    </p>
-
-    <div class="modal-price">
-      R$ 5,00
-      <span> — acesso individual</span>
+    <button class="close" onclick="closeModal()" aria-label="Fechar">×</button>
+    <div class="modal-grid">
+      <img id="modalCover" class="modal-cover" src="" alt="">
+      <div class="modal-content">
+        <span class="complete">HISTÓRIA COMPLETA</span>
+        <h2 id="modalTitle"></h2>
+        <p class="desc" id="modalDesc"></p>
+        <div class="price"><span>Acesso individual</span><strong>R$ 5,00</strong></div>
+        <p>Esta compra dá acesso somente à novelinha escolhida.</p>
+        <br>
+        <a id="picpay" class="buy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">COMPRAR AGORA</a>
+        <p class="small">Pagamento pelo PicPay · valor R$ 5,00</p>
+      </div>
     </div>
-
-    <p>
-      Esta compra dá acesso somente à novelinha escolhida.
-    </p>
-
-   <button
-    class="primary"
-    onclick="comprarAgora()"
-    style="display:block;width:100%;text-align:center;">
-    COMPRAR AGORA
-</button> 
-    
-
-    <button class="whatsapp" onclick="sendWhatsApp()">
-      ENVIAR COMPROVANTE PELO WHATSAPP
-    </button>
-
-    <div class="notice">
-      Depois do pagamento, envie seu comprovante pelo WhatsApp.
-    </div>
-
   </div>
 </div>
 
- "return=minimal"
 <script>
-async function comprarAgora() {
-
-    const email = prompt("Digite seu e-mail para receber o acesso:");
-
-    if (!email) {
-        alert("Digite seu e-mail para continuar.");
-        return;
+  const stories = {
+    vipera: {
+      title: "A VÍPERA DONNA",
+      desc: "A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.",
+      cover: "capa-vipera-donna.jpeg"
+    },
+    chamas: {
+      title: "ENTRE CHAMAS E ESCAMAS",
+      desc: "Um romance cercado por segredos, perigos e um destino que pode mudar tudo.",
+      cover: "capa-entre-chamas-e-escamas.jpeg"
     }
+  };
 
-    const resposta = await fetch(
-        SUPABASE_URL + "/rest/v1/pedidos",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "apikey": SUPABASE_KEY,
-                "Authorization": "Bearer " + SUPABASE_KEY,
-                "Prefer": "return=minimal"
-            },
-            body: JSON.stringify({
-                email: email,
-                Novelinha: "VÍPERA DONNA"
-            })
-        }
-    );
-
-    if (!resposta.ok) {
-        alert("Não foi possível registrar o pedido.");
-        return;
-    }
-
-    window.open(
-        "https://link.picpay.com/p/17898585596aaf12ff19cc2",
-        "_blank"
-        );
-}
- 
-function openStory(title, description){        
-
-
-  document.getElementById("modalTitle").textContent = title;
-
-  document.getElementById("modalDescription").textContent = description;
-
-  document.getElementById("modal").classList.add("show");
-}
-
-function closeModal(){
-
-  document.getElementById("modal").classList.remove("show");
-}
-
-document.getElementById("modal").addEventListener("click", function(event){
-
-  if(event.target === this){
-    closeModal();
+  function openStory(id){
+    const s = stories[id];
+    if(!s) return;
+    document.getElementById("modalTitle").textContent = s.title;
+    document.getElementById("modalDesc").textContent = s.desc;
+    const cover = document.getElementById("modalCover");
+    cover.src = s.cover;
+    cover.alt = "Capa de " + s.title;
+    document.getElementById("modal").classList.add("open");
+    document.body.style.overflow = "hidden";
   }
 
-});
+  function closeModal(){
+    document.getElementById("modal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
 
-function sendWhatsApp(){
+  function closeOutside(e){
+    if(e.target.id === "modal") closeModal();
+  }
 
-  const texto =
-    "Olá! Acabei de realizar o pagamento da novelinha pelo MeuDrama e estou enviando meu comprovante.";
-
-  const link =
-    "https://wa.me/?text=" + encodeURIComponent(texto);
-
-  window.open(link, "_blank");
-}
-const SUPABASE_URL = "https://urrelezmumqzelixlxlq.supabase.co";
-const SUPABASE_KEY = "sb_publishable_UKxbOGuLNLDuc-dTmozGaQ_tIW3UEht";
-
-async function registrarPedido(novelinha) {
-    const email = prompt("Digite seu e-mail para receber o acesso:");
-
-    if (!email) {
-        alert("Digite seu e-mail para continuar.");
-        return false;
-    }
-
-    const resposta = await fetch(
-        SUPABASE_URL + "/rest/v1/pedidos",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "apikey": SUPABASE_KEY,
-                "Authorization": "Bearer " + SUPABASE_KEY,
-                "Prefer": "return=minimal"
-            },
-            body: JSON.stringify({
-                email: email,
-                Novelinha: novelinha
-            })
-        }
-    );
-
-   if (!resposta.ok) {
-    const erro = await resposta.text();
-    alert("Erro " + resposta.status + ": " + erro);
-    return false;
-}
-    }
-
-    return true;
-}
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeModal();
+  });
 </script>
-
 </body>
 </html>
