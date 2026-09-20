@@ -3,131 +3,275 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="MeuDrama — Sua história. Seu drama. Seu momento.">
+  <meta name="description" content="MeuDrama — Novelinhas completas por apenas R$ 5,00.">
   <title>MeuDrama — Novelinhas</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:#09070d;
+      color:#fff;
+      line-height:1.5;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(9,7,13,.94);
+      border-bottom:1px solid rgba(255,255,255,.09);
+      backdrop-filter:blur(12px);
+    }
+    .nav{
+      max-width:1180px;margin:auto;padding:16px 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:25px;
+    }
+    .logo{font-size:25px;font-weight:800;letter-spacing:-1px}
+    .logo span{color:#fff}.logo b{color:#ff3d91}
+    .logo small{display:block;font-size:9px;letter-spacing:2px;color:#aaa;margin-top:1px}
+    nav{display:flex;gap:24px;color:#ddd;font-size:14px}
+    nav a:hover{color:#ff4a9a}
+    .hero{
+      max-width:1180px;margin:0 auto;padding:80px 22px 55px;
+      text-align:center;
+    }
+    .eyebrow{color:#ff3d91;font-weight:800;font-size:13px;letter-spacing:2px}
+    .hero h1{
+      font-family:Georgia,serif;font-size:clamp(42px,7vw,76px);
+      line-height:1.02;margin:14px auto;max-width:850px;
+    }
+    .hero p{max-width:650px;margin:0 auto;color:#bdb8c3;font-size:17px}
+    .hero-btn{
+      display:inline-block;margin-top:28px;padding:14px 25px;
+      border-radius:999px;background:#ff3d91;color:#fff;font-weight:800;
+      box-shadow:0 12px 35px rgba(255,61,145,.2);
+    }
+    section{max-width:1180px;margin:auto;padding:45px 22px}
+    .section-head{text-align:center;margin-bottom:28px}
+    .section-head h2{font-family:Georgia,serif;font-size:38px;margin-top:6px}
+    .section-head p{color:#aaa;margin-top:7px}
+    .cards{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px
+    }
+    .card{
+      background:linear-gradient(145deg,#17121d,#0f0c14);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:22px;overflow:hidden;
+      box-shadow:0 18px 50px rgba(0,0,0,.3);
+      transition:.2s;
+    }
+    .card:hover{transform:translateY(-4px);border-color:rgba(255,61,145,.4)}
+    .cover-wrap{height:430px;background:#17131d;overflow:hidden}
+    .cover{
+      width:100%;height:100%;display:block;object-fit:cover;
+    }
+    .card-body{padding:22px}
+    .tag{display:inline-block;color:#ff4a9a;font-size:11px;font-weight:800;letter-spacing:1.5px}
+    .card h3{font-family:Georgia,serif;font-size:29px;margin:7px 0}
+    .card p{color:#b9b4bf;min-height:52px}
+    .meta{margin:17px 0;color:#eee;font-weight:700}
+    .buy{
+      display:block;width:100%;text-align:center;
+      background:#ff3d91;color:#fff;border:0;border-radius:12px;
+      padding:14px;font-weight:800;cursor:pointer;
+    }
+    .buy:hover{background:#ff579f}
+    .how{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .step{
+      padding:28px 22px;border:1px solid rgba(255,255,255,.1);
+      border-radius:18px;background:#111018;text-align:center;
+    }
+    .num{color:#ff3d91;font-weight:900;font-size:13px}
+    .step h3{font-size:21px;margin:10px 0}
+    .step p{color:#aaa}
+    .note{text-align:center;color:#8f8a96;font-size:12px;margin-top:20px}
+    .help{
+      text-align:center;background:linear-gradient(145deg,#17111c,#0d0a11);
+      border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:38px 22px;
+    }
+    footer{text-align:center;color:#777;padding:35px 20px;border-top:1px solid rgba(255,255,255,.07)}
+    .modal{
+      position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.78);
+      display:none;align-items:center;justify-content:center;padding:20px;
+    }
+    .modal.open{display:flex}
+    .modal-box{
+      width:min(900px,100%);max-height:92vh;overflow:auto;
+      background:#15111b;border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;position:relative;
+    }
+    .close{
+      position:absolute;right:15px;top:12px;z-index:2;
+      width:40px;height:40px;border:0;border-radius:50%;
+      background:rgba(0,0,0,.65);color:#fff;font-size:25px;cursor:pointer;
+    }
+    .modal-grid{display:grid;grid-template-columns:280px 1fr}
+    .modal-cover{width:100%;height:100%;min-height:430px;object-fit:cover}
+    .modal-content{padding:35px}
+    .modal-content h2{font-family:Georgia,serif;font-size:37px;margin:7px 0 12px}
+    .modal-content .desc{color:#bcb7c2;margin-bottom:20px}
+    .complete{
+      display:inline-block;padding:7px 11px;border-radius:999px;
+      background:rgba(255,61,145,.12);color:#ff5aa3;font-size:12px;font-weight:800;
+    }
+    .price{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 0;margin:20px 0;border-top:1px solid rgba(255,255,255,.08);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .price strong{font-size:25px}
+    .small{color:#8e8994;font-size:12px;margin-top:12px;text-align:center}
+    @media(max-width:700px){
+      nav{gap:12px;font-size:12px}
+      .nav{padding:13px 15px}
+      .logo{font-size:21px}
+      .cards,.how,.modal-grid{grid-template-columns:1fr}
+      .cover-wrap{height:390px}
+      .modal-cover{height:360px;min-height:0}
+      .modal-content{padding:25px}
+    }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="logo" href="#inicio" aria-label="MeuDrama">
-      <span>Meu</span><b>Drama</b>
-      <small>SUA HISTÓRIA. SEU MOMENTO.</small>
-    </a>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="logo" href="#inicio"><span>Meu</span><b>Drama</b><small>SUA HISTÓRIA. SEU MOMENTO.</small></a>
     <nav>
       <a href="#inicio">Início</a>
       <a href="#novelinhas">Novelinhas</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#ajuda">Ajuda</a>
     </nav>
-    <div class="top-actions">
-      <button class="icon-btn" id="searchBtn" aria-label="Buscar">⌕</button>
-      <button class="outline-btn" id="loginBtn">Entrar</button>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="eyebrow">MEUDRAMA ORIGINAL</div>
+    <h1>Histórias que emocionam.</h1>
+    <p>Escolha sua novelinha, compre o acesso individual por apenas R$ 5,00 e aproveite a história completa.</p>
+    <a class="hero-btn" href="#novelinhas">Ver novelinhas</a>
+  </section>
+
+  <section id="novelinhas">
+    <div class="section-head">
+      <div class="eyebrow">ESCOLHA SUA HISTÓRIA</div>
+      <h2>Novelinhas</h2>
+      <p>Uma história por vez. Um acesso simples e direto.</p>
     </div>
-  </header>
 
-  <main id="inicio">
-    <section class="hero">
-      <div class="hero-content">
-        <p class="eyebrow">MEUDRAMA ORIGINALS</p>
-        <h1>Histórias que <em>emocionam.</em></h1>
-        <p class="hero-text">Amor, mistério, vingança e muito mais. Escolha sua novelinha e viva essa emoção.</p>
-        <a class="primary-btn" href="#novelinhas">EXPLORAR NOVELINHAS <span>→</span></a>
-      </div>
-      <div class="hero-glow"></div>
-    </section>
-
-    <section class="genres">
-      <button class="genre active" data-filter="Todos">▦<span>Todos</span></button>
-      <button class="genre" data-filter="Romance">♡<span>Romance</span></button>
-      <button class="genre" data-filter="Drama">◈<span>Drama</span></button>
-      <button class="genre" data-filter="Máfia">♛<span>Máfia</span></button>
-      <button class="genre" data-filter="Fantasia">♨<span>Fantasia</span></button>
-      <button class="genre" data-filter="Mistério">⌕<span>Mistério</span></button>
-    </section>
-
-    <section class="section" id="novelinhas">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow pink">EM DESTAQUE</p>
-          <h2>Novelinhas em destaque</h2>
+    <div class="cards">
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="capa-vipera-donna.jpeg" alt="Capa de A VÍPERA DONNA">
         </div>
-        <a href="#catalogo">Ver todas →</a>
-      </div>
-
-      <div class="featured-grid" id="featuredGrid"></div>
-    </section>
-
-    <section class="section" id="catalogo">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow pink">ESCOLHA SUA HISTÓRIA</p>
-          <h2>Mais histórias para você</h2>
+        <div class="card-body">
+          <span class="tag">MÁFIA · DRAMA · ROMANCE</span>
+          <h3>A VÍPERA DONNA</h3>
+          <p>A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.</p>
+          <div class="meta">História completa · R$ 5,00</div>
+          <button class="buy" onclick="openStory('vipera')">Ver detalhes e comprar</button>
         </div>
-      </div>
-      <div class="catalog" id="catalog"></div>
-    </section>
+      </article>
 
-    <section class="how" id="como-funciona">
-      <div class="section-heading centered">
-        <p class="eyebrow pink">SIMPLES E DIRETO</p>
-        <h2>Como funciona?</h2>
-      </div>
-      <div class="steps">
-        <article><span>01</span><h3>Escolha</h3><p>Encontre a novelinha que você quer assistir.</p></article>
-        <article><span>02</span><h3>Compre</h3><p>Cada história tem seu próprio acesso por R$ 5,00.</p></article>
-        <article><span>03</span><h3>Assista</h3><p>O acesso comprado fica vinculado àquela história.</p></article>
-      </div>
-      <p class="notice">Nesta primeira versão, o botão de compra é apenas uma demonstração. O pagamento real será conectado depois, com autenticação e controle de acesso.</p>
-    </section>
-
-    <section class="benefits">
-      <div><b>🔒</b><strong>Compra segura</strong><span>Seus dados protegidos</span></div>
-      <div><b>▶</b><strong>Acesso à história</strong><span>Assista quando quiser</span></div>
-      <div><b>♛</b><strong>Conteúdo exclusivo</strong><span>Novelinhas e bônus</span></div>
-      <div><b>♡</b><strong>Suporte</strong><span>Estamos aqui para ajudar</span></div>
-    </section>
-
-    <section class="newsletter">
-      <div><span class="mail">✉</span><div><strong>Receba novidades</strong><p>Fique por dentro dos próximos lançamentos.</p></div></div>
-      <form id="newsletterForm"><input type="email" placeholder="Seu e-mail" required><button>Quero receber</button></form>
-    </section>
-  </main>
-
-  <footer id="ajuda">
-    <div class="footer-logo"><span>Meu</span><b>Drama</b><small>SUA HISTÓRIA. SEU MOMENTO.</small></div>
-    <div class="footer-links"><a href="#inicio">Início</a><a href="#novelinhas">Novelinhas</a><a href="#como-funciona">Como funciona</a><a href="#ajuda">Ajuda</a></div>
-    <p>© 2026 MeuDrama. Todos os direitos reservados.</p>
-  </footer>
-
-  <div class="modal hidden" id="modal">
-    <div class="modal-card detail-card">
-      <button class="close" id="closeModal" aria-label="Fechar">×</button>
-      <img id="detailCover" class="detail-cover" src="" alt="">
-      <div class="detail-content">
-        <p class="eyebrow pink">MEUDRAMA ORIGINAL</p>
-        <h2 id="modalTitle">Novelinha</h2>
-        <p id="modalText"></p>
-        <div class="detail-meta" id="detailMeta"></div>
-        <h3>O que você recebe</h3>
-        <ul id="detailBenefits"></ul>
-        <div class="episodes-title">
-          <strong>Episódios</strong>
-          <span id="episodeCount"></span>
+      <article class="card">
+        <div class="cover-wrap">
+          <img class="cover" src="capa-entre-chamas-e-escamas.jpeg" alt="Capa de ENTRE CHAMAS E ESCAMAS">
         </div>
-        <div class="episode-list" id="episodeList"></div>
-        <div class="purchase-box">
-          <div><span>Acesso individual</span><strong>R$ 5,00</strong></div>
-          <a class="primary-btn full" id="demoBuy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank">Comprar acesso por R$ 5</a>
-          <button class="primary-btn full" id="demoBuy">Comprar acesso por R$ 5</button>
-          <small>Protótipo: o pagamento real será conectado depois.</small>
+        <div class="card-body">
+          <span class="tag">FANTASIA · ROMANCE · DRAMA</span>
+          <h3>ENTRE CHAMAS E ESCAMAS</h3>
+          <p>Um romance cercado por segredos, perigos e um destino que pode mudar tudo.</p>
+          <div class="meta">História completa · R$ 5,00</div>
+          <button class="buy" onclick="openStory('chamas')">Ver detalhes e comprar</button>
         </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="como-funciona">
+    <div class="section-head">
+      <div class="eyebrow">SIMPLES E DIRETO</div>
+      <h2>Como funciona?</h2>
+    </div>
+    <div class="how">
+      <div class="step"><div class="num">01</div><h3>Escolha</h3><p>Encontre a novelinha que você quer assistir.</p></div>
+      <div class="step"><div class="num">02</div><h3>Compre</h3><p>Cada história tem seu próprio acesso por R$ 5,00.</p></div>
+      <div class="step"><div class="num">03</div><h3>Acesse</h3><p>Após o pagamento, siga as instruções para receber seu acesso.</p></div>
+    </div>
+  </section>
+
+  <section id="ajuda">
+    <div class="help">
+      <div class="eyebrow">PRECISA DE AJUDA?</div>
+      <h2 style="font-family:Georgia,serif;margin:8px 0">Estamos aqui.</h2>
+      <p style="color:#aaa">Escolha a história, faça o pagamento e guarde o comprovante. Em caso de dúvida, entre em contato pelo canal de atendimento.</p>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 MeuDrama · Histórias que emocionam</footer>
+
+<div class="modal" id="modal" onclick="closeOutside(event)">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()" aria-label="Fechar">×</button>
+    <div class="modal-grid">
+      <img id="modalCover" class="modal-cover" src="" alt="">
+      <div class="modal-content">
+        <span class="complete">HISTÓRIA COMPLETA</span>
+        <h2 id="modalTitle"></h2>
+        <p class="desc" id="modalDesc"></p>
+        <div class="price"><span>Acesso individual</span><strong>R$ 5,00</strong></div>
+        <p>Esta compra dá acesso somente à novelinha escolhida.</p>
+        <br>
+        <a id="picpay" class="buy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">COMPRAR AGORA</a>
+        <p class="small">Pagamento pelo PicPay · valor R$ 5,00</p>
       </div>
     </div>
   </div>
+</div>
 
-  <script src="script.js"></script>
+<script>
+  const stories = {
+    vipera: {
+      title: "A VÍPERA DONNA",
+      desc: "A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.",
+      cover: "capa-vipera-donna.jpeg"
+    },
+    chamas: {
+      title: "ENTRE CHAMAS E ESCAMAS",
+      desc: "Um romance cercado por segredos, perigos e um destino que pode mudar tudo.",
+      cover: "capa-entre-chamas-e-escamas.jpeg"
+    }
+  };
+
+  function openStory(id){
+    const s = stories[id];
+    if(!s) return;
+    document.getElementById("modalTitle").textContent = s.title;
+    document.getElementById("modalDesc").textContent = s.desc;
+    const cover = document.getElementById("modalCover");
+    cover.src = s.cover;
+    cover.alt = "Capa de " + s.title;
+    document.getElementById("modal").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal(){
+    document.getElementById("modal").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function closeOutside(e){
+    if(e.target.id === "modal") closeModal();
+  }
+
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeModal();
+  });
+</script>
 </body>
 </html>
