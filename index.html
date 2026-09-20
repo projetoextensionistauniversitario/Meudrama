@@ -490,7 +490,10 @@ footer{
   </div>
 </div>
 
-<script>async function comprarAgora() {
+ "return=minimal"
+<script>
+async function comprarAgora() {
+
     const email = prompt("Digite seu e-mail para receber o acesso:");
 
     if (!email) {
@@ -516,17 +519,18 @@ footer{
     );
 
     if (!resposta.ok) {
-        alert("Não foi possível registrar seu pedido.");
+        alert("Não foi possível registrar o pedido.");
         return;
     }
 
     window.open(
         "https://link.picpay.com/p/17898585596aaf12ff19cc2",
         "_blank"
-    );
+        );
 }
+ 
+function openStory(title, description){        
 
-function openStory(title, description){
 
   document.getElementById("modalTitle").textContent = title;
 
