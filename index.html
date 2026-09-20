@@ -590,9 +590,11 @@ async function registrarPedido(novelinha) {
         }
     );
 
-    if (!resposta.ok) {
-        alert("Não foi possível registrar o pedido.");
-        return false;
+   if (!resposta.ok) {
+    const erro = await resposta.text();
+    alert("Erro " + resposta.status + ": " + erro);
+    return false;
+}
     }
 
     return true;
