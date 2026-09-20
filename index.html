@@ -227,14 +227,34 @@
         <div class="price"><span>Acesso individual</span><strong>R$ 5,00</strong></div>
         <p>Esta compra dá acesso somente à novelinha escolhida.</p>
         <br>
-        <a id="picpay" class="buy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">COMPRAR AGORA</a>
-        <p class="small">Pagamento pelo PicPay · valor R$ 5,00</p>
+<a id="picpay" class="buy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">COMPRAR AGORA</a>
+
+<button class="buy" type="button" onclick="sendWhatsApp()">ENVIAR COMPROVANTE PELO WHATSAPP</button>
+
+<p class="small">Depois do pagamento, envie seu comprovante pelo WhatsApp.</p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+  <script>
+function sendWhatsApp() {
+  const novelinha = document.getElementById("modalTitle").textContent.trim();
+
+  const mensagem =
+    "Olá! Acabei de comprar a novelinha " +
+    novelinha +
+    " pelo MeuDrama. Segue meu comprovante de pagamento.\n\n" +
+    "Meu e-mail: ";
+
+  const numero = "5568999014999";
+  const link = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+
+  window.open(link, "_blank");
+}
+
+const stories = {
   const stories = {
     vipera: {
       title: "A VÍPERA DONNA",
