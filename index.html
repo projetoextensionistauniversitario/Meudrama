@@ -123,6 +123,12 @@
     }
     .price strong{font-size:25px}
     .small{color:#8e8994;font-size:12px;margin-top:12px;text-align:center}
+
+    .email-label{display:block;color:#ddd;font-size:13px;font-weight:700;margin:18px 0 7px}
+    .email-input{display:block;width:100%;padding:14px 15px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:#0c0a10;color:#fff;outline:none;margin-bottom:12px}
+    .email-input:focus{border-color:#ff3d91}
+    .whatsapp{margin-top:10px;background:#26212d}
+    .whatsapp:hover{background:#342c3d}
     @media(max-width:700px){
       nav{gap:12px;font-size:12px}
       .nav{padding:13px 15px}
@@ -227,8 +233,11 @@
         <div class="price"><span>Acesso individual</span><strong>R$ 5,00</strong></div>
         <p>Esta compra dá acesso somente à novelinha escolhida.</p>
         <br>
-        <a id="picpay" class="buy" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">COMPRAR AGORA</a>
-        <p class="small">Pagamento pelo PicPay · valor R$ 5,00</p>
+        <label class="email-label" for="customerEmail">Seu e-mail</label>
+        <input id="customerEmail" class="email-input" type="email" placeholder="seuemail@gmail.com" autocomplete="email">
+        <button id="picpay" class="buy" type="button" onclick="comprarAgora()">COMPRAR AGORA</button>
+        <button id="whatsappBtn" class="buy whatsapp" type="button" onclick="enviarWhatsApp()">ENVIAR COMPROVANTE PELO WHATSAPP</button>
+        <p class="small">Digite seu e-mail antes de comprar. Depois do pagamento, envie o comprovante pelo WhatsApp.</p>
       </div>
     </div>
   </div>
@@ -251,6 +260,9 @@
   function openStory(id){
     const s = stories[id];
     if(!s) return;
+    currentStory = s;
+    const savedEmail = localStorage.getItem("meuDramaEmail");
+    document.getElementById("customerEmail").value = savedEmail || "";
     document.getElementById("modalTitle").textContent = s.title;
     document.getElementById("modalDesc").textContent = s.desc;
     const cover = document.getElementById("modalCover");
@@ -263,6 +275,28 @@
   function closeModal(){
     document.getElementById("modal").classList.remove("open");
     document.body.style.overflow = "";
+  }
+
+  let currentStory = null;
+  const PICPAY_URL = "https://link.picpay.com/p/17898585596aaf12ff19cc2";
+
+  function comprarAgora(){
+    const email = document.getElementById("customerEmail").value.trim();
+    if(!email || !email.includes("@")){
+      alert("Digite um e-mail válido para continuar.");
+      document.getElementById("customerEmail").focus();
+      return;
+    }
+    localStorage.setItem("meuDramaEmail", email);
+    localStorage.setItem("meuDramaNovelinha", currentStory ? currentStory.title : "");
+    window.open(PICPAY_URL, "_blank", "noopener");
+  }
+
+  function enviarWhatsApp(){
+    const email = document.getElementById("customerEmail").value.trim() || localStorage.getItem("meuDramaEmail") || "";
+    const novela = currentStory ? currentStory.title : (localStorage.getItem("meuDramaNovelinha") || "");
+    const texto = "Olá! Fiz o pagamento da novelinha pelo MeuDrama.\n\nNovelinha: " + novela + "\nE-mail: " + email + "\n\nEstou enviando meu comprovante.";
+    window.open("https://wa.me/?text=" + encodeURIComponent(texto), "_blank", "noopener");
   }
 
   function closeOutside(e){
