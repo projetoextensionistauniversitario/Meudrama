@@ -525,7 +525,41 @@ function sendWhatsApp(){
 
   window.open(link, "_blank");
 }
+const SUPABASE_URL = "https://urrelezmumqzelixlxlq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_UKxbOGuLNLDuc-dTmozGaQ_tIW3UEht";
 
+async function registrarPedido(novelinha) {
+    const email = prompt("Digite seu e-mail para receber o acesso:");
+
+    if (!email) {
+        alert("Digite seu e-mail para continuar.");
+        return false;
+    }
+
+    const resposta = await fetch(
+        SUPABASE_URL + "/rest/v1/pedidos",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": SUPABASE_KEY,
+                "Authorization": "Bearer " + SUPABASE_KEY,
+                "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+                email: email,
+                Novelinha: novelinha
+            })
+        }
+    );
+
+    if (!resposta.ok) {
+        alert("Não foi possível registrar o pedido.");
+        return false;
+    }
+
+    return true;
+}
 </script>
 
 </body>
