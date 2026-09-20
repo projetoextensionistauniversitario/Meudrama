@@ -188,18 +188,14 @@
   <div class="cover-wrap">
     <img class="cover" src="capa-me-rejeite-rei-dragao.jpg" alt="Capa de ME REJEITE, REI DRAGÃO">
   </div>
-
   <div class="card-body">
     <span class="tag">FANTASIA · ROMANCE · DRAMA</span>
     <h3>ME REJEITE, REI DRAGÃO</h3>
     <p>Uma história de amor, rejeição e destino, onde nada é o que parece.</p>
     <div class="meta">Episódio único · R$ 5,00</div>
-<button class="buy" onclick="openStory('dragao')">Ver detalhes e comprar</button>
+<button class="buy" onclick="openDragon()">Ver detalhes e comprar</button>
   </div>
 </article>
-    </div>
-  </section>
-
   <section id="como-funciona">
     <div class="section-head">
       <div class="eyebrow">SIMPLES E DIRETO</div>
@@ -301,6 +297,26 @@
   }
 
   let currentStory = null;
+  let currentStory = null;
+
+function openDragon(){
+    const s = stories.dragao;
+
+    currentStory = s;
+
+    const savedEmail = localStorage.getItem("meuDramaEmail");
+    document.getElementById("customerEmail").value = savedEmail || "";
+
+    document.getElementById("modalTitle").textContent = s.title;
+    document.getElementById("modalDesc").textContent = s.desc;
+
+    const cover = document.getElementById("modalCover");
+    cover.src = s.cover;
+    cover.alt = "Capa de " + s.title;
+
+    document.getElementById("modal").classList.add("open");
+    document.body.style.overflow = "hidden";
+}
   const PICPAY_URL = "https://link.picpay.com/p/17898585596aaf12ff19cc2";
 
   function comprarAgora(){
