@@ -1,6 +1,7 @@
 const stories = [
   {id:"vipera", title:"A VÍPERA DONNA", genre:["Drama","Máfia"], episodeCount:20, episodes:"20 episódios", cover:"capa-vipera-donna.jpeg", desc:"A Justiça da Madrasta na Máfia. Traição, poder e vingança. Ela foi julgada, mas agora é quem decide o destino.", tag:"EM ALTA", bonus:"Bônus exclusivo da história."},
-  {id:"chamas", title:"ENTRE CHAMAS E ESCAMAS", genre:["Fantasia","Romance"], episodeCount:18, episodes:"18 episódios", cover:"capa-entre-chamas-e-escamas.jpeg", desc:"Uma história de fantasia, romance e drama em meio a mistérios que vão mudar seu destino.", tag:"NOVIDADE", bonus:"Cenas e conteúdos extras da história."},
+ {id:"chamas", title:"ENTRE CHAMAS E ESCAMAS", genre:["Fantasia","Romance"], episodeCount:18, episodes:"18 episódios", cover:"capa-entre-chamas-e-escamas.jpeg", desc:"Um romance cercado por segredos, perigos e um destino que pode mudar tudo."},
+{id:"dragao", title:"ME REJEITE, REI DRAGÃO", genre:["Fantasia","Romance","Drama"], episodeCount:1, episodes:"Episódio único", cover:"capa-me-rejeite-rei-dragao.jpg", desc:"Uma história de amor, rejeição e destino, onde nada é o que parece."},
   {id:"segredos", title:"Segredos do Passado", genre:["Mistério","Drama"], episodeCount:16, episodes:"16 episódios", cover:"capa-vipera-donna.jpeg"},
   {id:"preco", title:"O Preço da Liberdade", genre:["Drama","Romance"], episodeCount:14, episodes:"14 episódios", cover:"capa-entre-chamas-e-escamas.jpeg"},
   {id:"amor", title:"Amor Proibido", genre:["Romance"], episodeCount:12, episodes:"12 episódios", cover:"capa-vipera-donna.jpeg"},
