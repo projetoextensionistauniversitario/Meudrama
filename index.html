@@ -25,7 +25,23 @@ header{padding:24px 20px;border-bottom:1px solid var(--line);background:rgba(8,8
 @media(max-width:900px){.catalog{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.catalog,.steps{grid-template-columns:1fr}.hero{padding-top:48px}.nav small{display:none}.card h2{font-size:22px}}
 </style>
-</head>
+<style id="premium-redesign">
+:root{--bg:#050406;--card:#100d13;--text:#f8f4f7;--muted:#aaa;--accent:#ff2c73;--accent2:#ff5b95;--line:#241b28}
+body{background:#050406;color:var(--text)}
+header{height:78px;padding:0 5%;background:rgba(5,4,6,.94);backdrop-filter:blur(16px);border-bottom:1px solid #241b28}
+.nav{max-width:none}.logo{font-family:Georgia,serif;font-size:29px}.logo span{color:#ff2c73}.nav small{color:#aaa}
+.hero{max-width:none;min-height:470px;padding:75px 5%;text-align:left;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(5,4,6,.98) 0%,rgba(5,4,6,.88) 38%,rgba(5,4,6,.22) 100%),url('capa-entre-chamas-e-escamas.jpeg') right center/cover no-repeat}
+.hero:after{content:"";position:absolute;inset:auto -10% -60% 35%;height:100%;background:radial-gradient(circle,rgba(255,44,115,.18),transparent 65%);pointer-events:none}
+.hero h1{font-family:Georgia,serif;font-size:clamp(42px,6vw,72px);max-width:680px}.hero p{max-width:620px}.eyebrow{color:#ff5b95}
+.catalog{max-width:none;padding:20px 5% 70px;grid-template-columns:repeat(7,minmax(145px,1fr));gap:15px}
+.card{background:#100d13;border:1px solid #27202a;border-radius:12px;box-shadow:none}.card:hover{transform:translateY(-5px);border-color:#ff2c73;box-shadow:0 15px 35px rgba(0,0,0,.4)}
+.cover-wrap{aspect-ratio:2/3}.cover{object-fit:cover}
+.card-body{padding:13px}.card h2{font-size:17px;font-family:Georgia,serif}.card p{font-size:12px;line-height:1.45}.tag{background:#ff1594;color:white;padding:6px 9px;border-radius:7px;font-size:9px;letter-spacing:.5px}.meta{font-size:15px;color:#ff2c73;margin-bottom:12px}.buy,.primary{background:#b80f3d;color:#fff;border-radius:8px}.buy:hover,.primary:hover{background:#ff2c73}
+.how{max-width:none;padding:75px 5%;border-top:1px solid #221a25}.section-head h2{font-family:Georgia,serif}.step{background:#0d0a10;border-color:#28202b}.num{color:#ff2c73}
+footer{background:#050406;border-top:1px solid #221a25}
+@media(max-width:1200px){.catalog{grid-template-columns:repeat(4,minmax(150px,1fr))}}
+@media(max-width:760px){.hero{min-height:430px;padding:60px 22px}.hero h1{font-size:48px}.catalog{grid-template-columns:repeat(2,minmax(0,1fr));padding-left:18px;padding-right:18px;gap:10px}.card-body{padding:12px}.card h2{font-size:18px}}
+</style></head>
 <body>
 <header><div class="nav"><div class="logo">Meu<span>Drama</span></div><small>Novelinha completa • acesso individual</small></div></header>
 <main>
