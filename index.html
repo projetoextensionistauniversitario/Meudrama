@@ -64,27 +64,108 @@ header{height:78px;padding:0 4%;background:rgba(5,4,6,.95);backdrop-filter:blur(
 <footer id="suporte">© 2026 MeuDrama • Acesso individual por novelinha</footer>
 <div class="modal" id="bonusModal" aria-hidden="true"><div class="modal-box bonus-box"><button class="close" type="button" onclick="closeBonus()">×</button><div class="eyebrow">🎁 BÔNUS DO DIA</div><h2>Escolha 3 novelinhas</h2><p class="modal-desc">Selecione exatamente 3 histórias e pague apenas <strong style="color:#ff2c73">R$ 12,00</strong>.</p><div id="bonusChoices" class="bonus-choices"></div><div class="price-line"><span>Seu bônus</span><strong>R$ 12,00</strong></div><label for="bonusEmail">Seu e-mail</label><input id="bonusEmail" type="email" placeholder="Digite seu e-mail corretamente" autocomplete="email"><div class="notice"><strong>Importante:</strong> informe seu e-mail corretamente. Após o pagamento, envie o comprovante pelo WhatsApp. O acesso será liberado manualmente após a confirmação do pagamento.</div><a id="bonusPay" class="primary" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">PAGAR R$ 12,00 NO PICPAY</a><button id="bonusWhatsapp" class="whatsapp" type="button">ENVIAR COMPROVANTE PELO WHATSAPP</button><div class="access">Escolha 3 histórias antes de enviar o comprovante.</div></div></div><div class="modal" id="modal" aria-hidden="true"><div class="modal-box"><button class="close" type="button" onclick="closeModal()">×</button><img id="modalCover" class="modal-cover" src="" alt=""><h2 id="modalTitle"></h2><p id="modalDesc" class="modal-desc"></p><div class="price-line"><span>História completa</span><strong>R$ 5,00</strong></div><label for="customerEmail">Seu e-mail</label><input id="customerEmail" type="email" placeholder="Digite seu e-mail corretamente" autocomplete="email"><div class="notice"><strong>Importante:</strong> informe o e-mail da sua Conta Google. Após o pagamento, envie o comprovante pelo WhatsApp. <strong>O acesso não é liberado automaticamente.</strong> Depois da confirmação do pagamento, o acesso será compartilhado manualmente com o e-mail informado.</div><a class="primary" href="https://link.picpay.com/p/17898585596aaf12ff19cc2" target="_blank" rel="noopener">PAGAR R$ 5,00 NO PICPAY</a><button id="whatsappButton" class="whatsapp" type="button">ENVIAR COMPROVANTE PELO WHATSAPP</button><div class="access">Após o pagamento, envie o comprovante pelo WhatsApp. O acesso à novelinha será liberado somente após a confirmação.</div></div></div>
 <script>
-const bonusStories=[['chamas','ENTRE CHAMAS E ESCAMAS'],['dragao','ME REJEITE, REI DRAGÃO'],['fera','ADEUS, PRÍNCIPE — A NOIVA DA FERA'],['luna','A BABÁ DO ALPHA É SUA LUNA'],['renaci','RENACÍ, Y ME NEGÉ A SER SU NOVIA'],['gravida','ESTOU GRÁVIDA, NÃO É SEU'],['doce','A DOCE ESPOSA SUBSTITUTA DO LORDE DRAGÃO MALIGNO'],['padrasto','MEU PADRASTO ALFA EXILADO'],['elfo','MEU ELFO, MEU AMOR'],['poder','PODER ALÉM DO OLHAR'],['fantasma-irma','CASEI COM O NOIVO FANTASMA DA MINHA IRMÃ'],['rasteje','Rasteje, Mortal: A Deusa do Mar Desperta - IA Dublado'],['vipera','A VÍPERA DONNA — A JUSTIÇA DA MADRASTA NA MÁFIA']];
-function openBonus(){const box=document.getElementById('bonusChoices');box.innerHTML=bonusStories.map(([id,name])=>'<label class="bonus-choice"><input type="checkbox" value="'+id+'"><span>'+name+'<small>R$ 5,00 avulsa</small></span></label>').join('');document.getElementById('bonusEmail').value=localStorage.getItem('meuDramaEmail')||'';document.getElementById('bonusModal').classList.add('open');document.body.classList.add('modal-open');box.querySelectorAll('input').forEach(x=>x.addEventListener('change',()=>{const selected=[...box.querySelectorAll('input:checked')];if(selected.length>3)x.checked=false;box.querySelectorAll('.bonus-choice').forEach(l=>l.classList.toggle('selected',l.querySelector('input').checked))}))}
-function closeBonus(){document.getElementById('bonusModal').classList.remove('open');document.body.classList.remove('modal-open')}
-document.getElementById('bonusWhatsapp').addEventListener('click',()=>{const selected=[...document.querySelectorAll('#bonusChoices input:checked')];const email=document.getElementById('bonusEmail').value.trim();if(selected.length!==3){alert('Escolha exatamente 3 novelinhas.');return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Digite um e-mail válido.');return}localStorage.setItem('meuDramaEmail',email);const names=selected.map(x=>bonusStories.find(s=>s[0]===x.value)[1]).join(', ');window.open('https://wa.me/5568999014999?text='+encodeURIComponent('Olá! Acabei de pagar R$ 12,00 pelo Bônus do Dia do MeuDrama.\n\nNovelinhas escolhidas: '+names+'\n\nE-mail para liberar o acesso: '+email+'\n\nEstou enviando o comprovante do pagamento.'),'_blank')});
-document.getElementById('bonusModal').addEventListener('click',e=>{if(e.target.id==='bonusModal')closeBonus()});
+const bonusStories=[
+['chamas','ENTRE CHAMAS E ESCAMAS'],['dragao','ME REJEITE, REI DRAGÃO'],['fera','ADEUS, PRÍNCIPE — A NOIVA DA FERA'],['luna','A BABÁ DO ALPHA É SUA LUNA'],['renaci','RENACÍ, Y ME NEGÉ A SER SU NOVIA'],['gravida','ESTOU GRÁVIDA, NÃO É SEU'],['doce','A DOCE ESPOSA SUBSTITUTA DO LORDE DRAGÃO MALIGNO'],['padrasto','MEU PADRASTO ALFA EXILADO'],['elfo','MEU ELFO, MEU AMOR'],['poder','PODER ALÉM DO OLHAR'],['fantasma-irma','CASEI COM O NOIVO FANTASMA DA MINHA IRMÃ'],['rasteje','Rasteje, Mortal: A Deusa do Mar Desperta - IA Dublado'],['vipera','A VÍPERA DONNA — A JUSTIÇA DA MADRASTA NA MÁFIA']
+];
+
 const stories={
-chamas:{title:'ENTRE CHAMAS E ESCAMAS',desc:'Um romance cercado por segredos, perigos e um destino que pode mudar tudo.',cover:'capa-entre-chamas-e-escamas.jpeg'},
-dragao:{title:'ME REJEITE, REI DRAGÃO',desc:'Uma história de amor, rejeição e destino, onde nada é o que parece.',cover:'capa-me-rejeite-rei-dragao.jpg'},
-fera:{title:'ADEUS, PRÍNCIPE — A NOIVA DA FERA',desc:'Uma história de amor, destino e uma fera que esconde grandes segredos.',cover:'4945010347601497309.jpg'},
-doce:{title:'A DOCE ESPOSA SUBSTITUTA DO LORDE DRAGÃO MALIGNO',desc:'Um casamento inesperado, um lorde dragão e uma esposa substituta cercada por segredos.',cover:'capa-a-doce-esposa-substituta.jpg'},
-gravida:{title:'ESTOU GRÁVIDA, NÃO É SEU',desc:'Um segredo, uma gravidez inesperada e uma história de amor que pode mudar tudo.',cover:'5177027186760813708.jpg'},
-renaci:{title:'RENACÍ, Y ME NEGÉ A SER SU NOVIA',desc:'Uma nova vida, um destino inesperado e uma decisão que pode mudar tudo.',cover:'capa-renaci-y-me-negue-a-ser-su-novia.jpg'},
-luna:{title:'A BABÁ DO ALPHA É SUA LUNA',desc:'Um amor predestinado, segredos de família e uma conexão que ninguém consegue escapar.',cover:'capa-a-baba-do-alpha-e-sua-luna.webp'},
-padrasto:{title:'MEU PADRASTO ALFA EXILADO',desc:'Uma história de romance, segredos e destino nas montanhas, onde um alfa exilado pode mudar tudo.',cover:'meu-padrasto-alfa-exilado.webp'},
-elfo:{title:'MEU ELFO, MEU AMOR',desc:'Uma história de fantasia, romance e um amor mágico que desafia todos os limites.',cover:'capa-meu-elfo-meu-amor.jpg'},
-poder:{title:'PODER ALÉM DO OLHAR',desc:'Alguns enxergam o mundo... ele enxerga o que ninguém vê. Quando o sobrenatural encontra a realidade, nada será como antes.',cover:'capa-poder-alem-do-olhar.webp'},'fantasma-irma':{title:'CASEI COM O NOIVO FANTASMA DA MINHA IRMÃ',desc:'Um casamento inesperado, um noivo fantasma e segredos que ligam duas irmãs.',cover:'capa-casei-com-o-noivo-fantasma-da-minha-irma.jpg'},rasteje:{title:'Rasteje, Mortal: A Deusa do Mar Desperta - IA Dublado',desc:'Uma deusa do mar desperta, um destino sobrenatural e dois homens ligados a ela por um segredo.',cover:'capa-rasteje-mortal-exata.jpg'},vipera:{title:'A VÍPERA DONNA — A JUSTIÇA DA MADRASTA NA MÁFIA',desc:'Uma madrasta determinada entra no mundo da máfia em busca de justiça, enfrentando segredos, perigos e uma família poderosa.',cover:'capa-a-vipera-donna.jpg'}};
+'chamas':{title:'ENTRE CHAMAS E ESCAMAS',desc:'Um romance cercado por segredos, perigos e um destino que pode mudar tudo.',cover:'capa-entre-chamas-e-escamas.jpeg'},
+'dragao':{title:'ME REJEITE, REI DRAGÃO',desc:'Uma história de amor, rejeição e destino, onde nada é o que parece.',cover:'capa-me-rejeite-rei-dragao.jpg'},
+'fera':{title:'ADEUS, PRÍNCIPE — A NOIVA DA FERA',desc:'Uma história de amor, destino e uma fera que esconde grandes segredos.',cover:'4945010347601497309.jpg'},
+'doce':{title:'A DOCE ESPOSA SUBSTITUTA DO LORDE DRAGÃO MALIGNO',desc:'Um casamento inesperado, um lorde dragão e uma esposa substituta cercada por segredos.',cover:'capa-a-doce-esposa-substituta.jpg'},
+'gravida':{title:'ESTOU GRÁVIDA, NÃO É SEU',desc:'Um segredo, uma gravidez inesperada e uma história de amor que pode mudar tudo.',cover:'5177027186760813708.jpg'},
+'renaci':{title:'RENACÍ, Y ME NEGÉ A SER SU NOVIA',desc:'Uma nova vida, um destino inesperado e uma decisão que pode mudar tudo.',cover:'capa-renaci-y-me-negue-a-ser-su-novia.jpg'},
+'luna':{title:'A BABÁ DO ALPHA É SUA LUNA',desc:'Um amor predestinado, segredos de família e uma conexão que ninguém consegue escapar.',cover:'capa-a-baba-do-alpha-e-sua-luna.webp'},
+'padrasto':{title:'MEU PADRASTO ALFA EXILADO',desc:'Uma história de romance, segredos e destino nas montanhas, onde um alfa exilado pode mudar tudo.',cover:'meu-padrasto-alfa-exilado.webp'},
+'elfo':{title:'MEU ELFO, MEU AMOR',desc:'Uma história de fantasia, romance e um amor mágico que desafia todos os limites.',cover:'capa-meu-elfo-meu-amor.jpg'},
+'poder':{title:'PODER ALÉM DO OLHAR',desc:'Alguns enxergam o mundo... ele enxerga o que ninguém vê. Quando o sobrenatural encontra a realidade, nada será como antes.',cover:'capa-poder-alem-do-olhar.webp'},
+'fantasma-irma':{title:'CASEI COM O NOIVO FANTASMA DA MINHA IRMÃ',desc:'Um casamento inesperado, um noivo fantasma e segredos que ligam duas irmãs.',cover:'capa-casei-com-o-noivo-fantasma-da-minha-irma.jpg'},
+'rasteje':{title:'Rasteje, Mortal: A Deusa do Mar Desperta - IA Dublado',desc:'Uma deusa do mar desperta, um destino sobrenatural e dois homens ligados a ela por um segredo.',cover:'capa-rasteje-mortal-exata.jpg'},
+'vipera':{title:'A VÍPERA DONNA — A JUSTIÇA DA MADRASTA NA MÁFIA',desc:'Uma madrasta determinada entra no mundo da máfia em busca de justiça, enfrentando segredos, perigos e uma família poderosa.',cover:'capa-a-vipera-donna.jpg'}
+};
+
 let currentStory=null;
-function openStory(id){const s=stories[id];currentStory=s;document.getElementById('customerEmail').value=localStorage.getItem('meuDramaEmail')||'';document.getElementById('modalTitle').textContent=s.title;document.getElementById('modalDesc').textContent=s.desc;const im=document.getElementById('modalCover');im.src=s.cover;im.alt='Capa de '+s.title;document.getElementById('modal').classList.add('open');document.body.classList.add('modal-open')}
-function closeModal(){document.getElementById('modal').classList.remove('open');document.body.classList.remove('modal-open')}
-document.getElementById('whatsappButton').addEventListener('click',()=>{const email=document.getElementById('customerEmail').value.trim();if(!email){alert('Digite seu e-mail antes de enviar o comprovante.');return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Digite um e-mail válido.');return}localStorage.setItem('meuDramaEmail',email);window.open('https://wa.me/5568999014999?text='+encodeURIComponent('Olá! Acabei de pagar R$ 5,00 pela novelinha '+currentStory.title+'.\n\nE-mail para liberar o acesso: '+email+'\n\nEstou enviando o comprovante do pagamento.'),'_blank')});
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+function getSavedEmail(){try{return localStorage.getItem('meuDramaEmail')||''}catch(e){return ''}}
+function saveEmail(v){try{localStorage.setItem('meuDramaEmail',v)}catch(e){}}
+
+window.openStory=function(id){
+  const s=stories[id];
+  if(!s)return;
+  currentStory=s;
+  const email=document.getElementById('customerEmail');
+  if(email)email.value=getSavedEmail();
+  const title=document.getElementById('modalTitle');
+  const desc=document.getElementById('modalDesc');
+  const cover=document.getElementById('modalCover');
+  const modal=document.getElementById('modal');
+  if(!title||!desc||!cover||!modal)return;
+  title.textContent=s.title;
+  desc.textContent=s.desc;
+  cover.src=s.cover;
+  cover.alt='Capa de '+s.title;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+};
+
+window.closeModal=function(){
+  const modal=document.getElementById('modal');
+  if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
+  document.body.classList.remove('modal-open');
+};
+
+window.openBonus=function(){
+  const box=document.getElementById('bonusChoices');
+  const modal=document.getElementById('bonusModal');
+  if(!box||!modal)return;
+  box.innerHTML=bonusStories.map(([id,name])=>'<label class="bonus-choice"><input type="checkbox" value="'+id+'"><span>'+name+'<small>R$ 5,00 avulsa</small></span></label>').join('');
+  const email=document.getElementById('bonusEmail');
+  if(email)email.value=getSavedEmail();
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  box.querySelectorAll('input').forEach(x=>x.addEventListener('change',function(){
+    const selected=box.querySelectorAll('input:checked');
+    if(selected.length>3)this.checked=false;
+    box.querySelectorAll('.bonus-choice').forEach(label=>label.classList.toggle('selected',label.querySelector('input').checked));
+  }));
+};
+
+window.closeBonus=function(){
+  const modal=document.getElementById('bonusModal');
+  if(modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')}
+  document.body.classList.remove('modal-open');
+};
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.story button[onclick]').forEach(button=>{
+    const match=(button.getAttribute('onclick')||'').match(/openStory\(['"]([^'"]+)['"]\)/);
+    if(match)button.onclick=function(){window.openStory(match[1]);};
+  });
+  const bw=document.getElementById('bonusWhatsapp');
+  if(bw)bw.addEventListener('click',function(){
+    const selected=[...document.querySelectorAll('#bonusChoices input:checked')];
+    const email=(document.getElementById('bonusEmail')?.value||'').trim();
+    if(selected.length!==3){alert('Escolha exatamente 3 novelinhas.');return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Digite um e-mail válido.');return}
+    saveEmail(email);
+    const names=selected.map(x=>bonusStories.find(s=>s[0]===x.value)?.[1]||x.value).join(', ');
+    window.open('https://wa.me/5568999014999?text='+encodeURIComponent('Olá! Acabei de pagar R$ 12,00 pelo Bônus do Dia do MeuDrama.\n\nNovelinhas escolhidas: '+names+'\n\nE-mail para liberar o acesso: '+email+'\n\nEstou enviando o comprovante do pagamento.'),'_blank');
+  });
+  const wb=document.getElementById('whatsappButton');
+  if(wb)wb.addEventListener('click',function(){
+    const email=(document.getElementById('customerEmail')?.value||'').trim();
+    if(!email){alert('Digite seu e-mail antes de enviar o comprovante.');return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Digite um e-mail válido.');return}
+    saveEmail(email);
+    if(!currentStory){alert('Escolha uma novelinha primeiro.');return}
+    window.open('https://wa.me/5568999014999?text='+encodeURIComponent('Olá! Acabei de pagar R$ 5,00 pela novelinha '+currentStory.title+'.\n\nE-mail para liberar o acesso: '+email+'\n\nEstou enviando o comprovante do pagamento.'),'_blank');
+  });
+  const modal=document.getElementById('modal');
+  if(modal)modal.addEventListener('click',e=>{if(e.target===modal)window.closeModal()});
+  const bonus=document.getElementById('bonusModal');
+  if(bonus)bonus.addEventListener('click',e=>{if(e.target===bonus)window.closeBonus()});
+});
 </script>
 </body>
 </html>
